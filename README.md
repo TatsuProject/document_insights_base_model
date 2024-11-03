@@ -36,7 +36,7 @@ Follow these steps to set up the YOLO Checkbox Detector:
 
 ## Downloading Model Weights
 
-Retrieve the YOLOv8 Checkbox Detector weights by joining our [Discord community](https://discord.com/channels/799672011265015819/1263858989800886302). 
+Retrieve the YOLOv8 Checkbox Detector weights by joining our [Discord community](https://discord.com/channels/799672011265015819/1300456223371427912). 
 
 1. After downloading, create a `model` directory in the project root.
 2. Place the downloaded weights into the `model` folder.
