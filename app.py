@@ -8,10 +8,21 @@ from PIL import Image
 import sys
 import os
 import logging
+from logging.handlers import TimedRotatingFileHandler
 from threading import Lock
 import torch
 
+
 logging.basicConfig(level=logging.INFO)
+log_handler = TimedRotatingFileHandler("./logs/yolo_logs_24h.log", when="midnight", interval=1, backupCount=7)
+log_handler.setLevel(logging.INFO)
+log_formatter = logging.Formatter("%(asctime)s - %(levelname)s - %(message)s")
+log_handler.setFormatter(log_formatter)
+
+# Add the handler to bittensor logger
+root_logger = logging.getLogger()  # Get the root logger instance
+root_logger.addHandler(log_handler)
+
 
 app = Flask(__name__)
 
@@ -38,7 +49,7 @@ def predict():
     # Make predictions
     try:
         # with model_lock:  # Ensure that only one thread accesses the model at a time
-        print("---------- device: ", device)
+        logging.info(f"---------- device: {device}")
         results = model.predict(source=image, device=device)
         # logging.info(f"[{request_id}]: Model predictions: {results}")
     except Exception as e:
