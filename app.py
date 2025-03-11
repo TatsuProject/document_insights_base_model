@@ -12,6 +12,8 @@ from logging.handlers import TimedRotatingFileHandler
 from threading import Lock
 import torch
 from doc_classifier.inference import doc_classifier_predict
+from doc_parser.get_llm_response import parse_document_content
+from doc_parser.ocr import extract_text_from_image
 
 
 logging.basicConfig(level=logging.INFO)
@@ -85,6 +87,18 @@ def predict():
     elif task_type=="doc-class":
         logging.info(f"---------- device: {device}")
         predictions.append(doc_classifier_predict(image_rgb))
+
+    elif task_type=="doc-parse":
+        logging.info(f"---------- device: {device}")
+        doc_type = doc_classifier_predict(image_rgb)
+        context = extract_text_from_image(image_data)
+        parsed_result = parse_document_content(doc_type, context)
+        final_dict = {
+            "document_class": doc_type,
+            "NER": parsed_result
+        }
+        predictions.append(final_dict)
+
     else:
         predictions.append("unsupported task type")
         status = "error"
