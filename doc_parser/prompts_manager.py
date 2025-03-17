@@ -345,6 +345,7 @@ def get_document_prompt(document_type: str, context: str) -> str:
             "date": {{"text": "", "bounding_box": []}},
             "respondent_name": {{"text": "", "bounding_box": []}},
             "respondent_id": {{"text": "", "bounding_box": []}}
+        }}
     """
 
 
