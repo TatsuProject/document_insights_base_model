@@ -13,6 +13,7 @@ from threading import Lock
 import torch
 from doc_classifier.inference import doc_classifier_predict
 from doc_parser.get_llm_response import parse_document_content
+from doc_parser.get_llm_response_api import parse_document_content_api
 from doc_parser.ocr import extract_text_from_image
 
 
@@ -92,7 +93,9 @@ def predict():
         logging.info(f"---------- device: {device}")
         doc_type = doc_classifier_predict(image_rgb)
         context = extract_text_from_image(image_data)
-        parsed_result = parse_document_content(doc_type, context)
+        # parsed_result = parse_document_content(doc_type, context)
+        parsed_result = parse_document_content_api(doc_type, context)
+        
         final_dict = {
             "document_class": doc_type,
             "NER": parsed_result
