@@ -30,7 +30,10 @@ def parse_document_content_api(doc_type, context):
     )
 
     # Parse response
-    return json.loads(response.choices[0].message.content)
+    try:
+        return json.loads(response.choices[0].message.content)
+    except json.JSONDecodeError:
+        return {}
 
 
 if __name__ == "__main__":
