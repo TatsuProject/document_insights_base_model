@@ -102,3 +102,10 @@ You can set the `task_type` parameter to one of the following:
 - `"checkbox"` – for checkbox-text detection  
 - `"doc-class"` – for document classification  
 - `"doc-parse"` – for document parsing using LLM
+
+## Hardware Requirements
+- **For using LLM via API:**  
+  A minimum of **16GB of RAM** is sufficient to interact with the LLM through the API.
+
+- **For running LLM locally:**  
+  To run the LLM locally, you'll need at least **32GB of RAM** and **12GB of GPU memory** for optimal performance.
