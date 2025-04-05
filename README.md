@@ -1,32 +1,37 @@
-# YOLO Checkbox Detector
+# 📄 Document Insights
 
-The **YOLO Checkbox Detector** leverages the power of **YOLOv8-large**, trained extensively on a unique dataset of 10,000 diverse documents, both scanned and general, to accurately detect checkboxes. Our model achieves exceptional performance, significantly outperforming leading AI solutions like GPT-4 Vision and Azure Form Recognizer.
+Document Insights is an advanced document understanding system that performs three core tasks with state-of-the-art accuracy:
 
-### Model Performance
-Our model was rigorously tested on a challenging test set of 300 images. Here’s how it stacks up:
+- 🟩 **Checkbox-Text Pair Detection**  
+- 🧠 **Document Classification (OCR-Free)**  
+- 📄 **Document Parsing with LLMs**
 
-| Model                       |  F1-Score |
-|-----------------------------|-------------|
-| **Azure Form Recognizer**    | 0.72       |
-| **GPT-4 Vision**             | 0.63       |
-| **YOLO Checkbox Detector**   | **0.88**   |
+## 🚀 Key Features
 
-With an F1-Score of 0.88, the YOLO Checkbox Detector sets a new benchmark in checkbox detection, offering superior accuracy and reliability for document processing tasks.
+### ✅ Checkbox Detection (YOLOv8)
+Custom-trained **YOLOv8-large** model fine-tuned on 10,000+ diverse document images (scanned + digital) with outstanding precision.
 
-## Table of Contents
+#### 📊 Performance Comparison (F1-Score)
+| Model                     | F1-Score |
+|---------------------------|----------|
+| Azure Form Recognizer     | 0.72     |
+| GPT-4 Vision              | 0.63     |
+| **YOLO Checkbox Detector** | **0.88** |
 
-- [ Installation](#installation)
-- [ Downloading Model Weights](#downloading-model-weights)
-- [ Running Tests](#running-tests)
+### 🧠 Document Classification (DONUT)
+OCR-free classification using the **DONUT model** - fast, lightweight, and accurate.
 
-##  Installation
+### 📄 Document Parsing (LLM-based)
+Flexible parsing options:
+- ☁️ **API-based** (OpenAI, Claude)
+- 💻 **Local LLMs** (`qwen:14b` via [Ollama](https://ollama.com))
 
-Follow these steps to set up the YOLO Checkbox Detector:
+## 📦 Installation
 
-1. **Clone the repository:**
-   ```bash
-   git clone https://github.com/TatsuProject/yolo_checkbox_detector
-   cd yolo_checkbox_detector
+1. Clone the repository:
+```bash
+git clone https://github.com/TatsuProject/document_insights_base_model
+cd document_insights_base_model
    ```
 
 2. **Install dependencies:**
@@ -34,22 +39,66 @@ Follow these steps to set up the YOLO Checkbox Detector:
    pip install -r requirements.txt
    ```
 
-## Downloading Model Weights
+## 📥 Downloading Model Weights
 
-Retrieve the YOLOv8 Checkbox Detector weights by joining our [Discord community](https://discord.com/channels/799672011265015819/1300456223371427912). 
+### ✅ YOLO Checkbox Detector
 
-1. After downloading, create a `model` directory in the project root.
-2. Place the downloaded weights into the `model` folder.
+- Join our [Discord Community](https://discord.com/channels/799672011265015819/1300456223371427912) to get access to the model weights.
+- Create a `model/` directory at the root of this repository.
+- Place the downloaded weight file inside the `model/` folder.
 
-## Running Tests
+---
 
-1. **Start the service:**
-   ```bash
-   python app.py
-   ```
+### 🗂️ Document Classification (DONUT)
 
-2. **Run the test script** to analyze an image containing checkboxes:
-   ```bash
-   python test_app.py
-   ```
-   Make sure to provide the path to your target image in the script for accurate detection.
+Weights for DONUT will be downloaded automatically from Hugging Face the first time the model is used.  
+Please ensure you have **at least 10 GB of free disk space**.
+
+---
+
+## 🧠 Using LLMs
+To use the LLMs through API, you need to have an API key and include it in the script located at `doc_parser/get_llm_response_api.py`. You can also implement your custom logic in this script as needed.
+
+To run document parsing without relying on external APIs, you can host LLMs locally using **Ollama**.
+
+### 🧰 Step 1: Install Ollama
+
+1. Visit the official website: [https://ollama.com](https://ollama.com)  
+2. Download and install Ollama for your OS (Linux, macOS, or Windows)  
+3. Start the Ollama service:
+
+```bash
+# Install Ollama
+curl -fsSL https://ollama.com/install.sh | sh
+```
+
+### 📦 Step 2: Download Qwen 2.5 14B Locally
+
+Run the following command to download and serve Qwen 2.5 (14B) using Ollama:
+
+```bash
+ollama pull qwen2.5:14b
+ollama run qwen2.5:14b
+
+```
+---
+
+### 🧪 Running Tests
+
+**1. Start the main app service:**
+
+```bash
+python app.py
+```
+
+**2. Run a test on a document/image:**
+```bash
+python test_app.py
+```
+Make sure to update `test_app.py` with the correct image path.
+
+You can set the `task_type` parameter to one of the following:
+
+- `"checkbox"` – for checkbox-text detection  
+- `"doc-class"` – for document classification  
+- `"doc-parse"` – for document parsing using LLM
