@@ -1,4 +1,4 @@
-# 📄 Document Insights
+# 📄 Docs Insights
 
 Document Insights is an advanced document understanding system that performs three core tasks with state-of-the-art accuracy:
 
